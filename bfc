@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Author: ANDRIANARISON Andry Nirina
+
+# Variables
+diroffile="$(dirname $1)"
+filename="$(basename $1)"
+backupdir="${diroffile}/.backup_config"
+
+if ! [[ -f $1 ]] || [[ -z $1 ]];
+then
+        echo "Arguments is must be a file"
+        echo "Usage : <filename>"
+        exit 1
+fi
+
+if ! [[ -d $backupdir ]];
+then
+        echo "Create backup directory ..."
+        mkdir -p $backupdir
+fi
+
+cp -ar $1 ${backupdir}/$filename-$(date +%Y-%m-%d_%H:%M)
